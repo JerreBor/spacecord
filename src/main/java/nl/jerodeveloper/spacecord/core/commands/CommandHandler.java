@@ -3,7 +3,6 @@ package nl.jerodeveloper.spacecord.core.commands;
 import lombok.Getter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import nl.jerodeveloper.spacecord.core.commands.execution.CommandExecutor;
-import nl.jerodeveloper.spacecord.core.commands.execution.CommandValidator;
 
 import java.util.HashMap;
 
@@ -24,7 +23,7 @@ public class CommandHandler {
         return commands.get(commandClass).getClass().getAnnotation(Command.class);
     }
 
-    public void tryCommand(Class<?> command, MessageReceivedEvent event) {
+    public void runCommand(Class<?> command, MessageReceivedEvent event) {
         CommandExecutor.executeCommand(commands.get(command), event);
     }
 
