@@ -1,4 +1,4 @@
-package nl.jerodeveloper.spacecord.core.modular.logger;
+package nl.jerodeveloper.spacecord.core.modular.injectors.logger;
 
 import com.google.inject.MembersInjector;
 import org.slf4j.Logger;

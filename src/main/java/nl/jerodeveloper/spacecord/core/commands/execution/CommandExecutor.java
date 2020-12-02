@@ -31,6 +31,7 @@ public class CommandExecutor {
 
         CompletableFuture.runAsync(() -> {
             try {
+                method.setAccessible(true);
                 method.invoke(commandObject, invokeObjects);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
