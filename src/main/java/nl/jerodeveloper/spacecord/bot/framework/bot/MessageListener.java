@@ -29,13 +29,15 @@ public class MessageListener extends ListenerAdapter {
             if (result.isValid()) {
                 commandHandler.runCommand(commandClass, event);
             } else {
-                sendHelpEmbed(textChannel, "Something went wrong", result.getContext());
+                if (result.isMessage()) {
+                    sendHelpEmbed(textChannel, result.getContext());
+                }
             }
         }
     }
 
-    private void sendHelpEmbed(TextChannel channel, String title, String description) {
-        channel.sendMessage(EmbedHelper.getErrorEmbed(title, description)).queue();
+    private void sendHelpEmbed(TextChannel channel, String description) {
+        channel.sendMessage(EmbedHelper.getErrorEmbed("Something went wrong", description)).queue();
     }
 
 }

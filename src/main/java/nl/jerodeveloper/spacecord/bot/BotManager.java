@@ -6,12 +6,8 @@ import net.dv8tion.jda.api.JDABuilder;
 import nl.jerodeveloper.spacecord.bot.framework.bot.ReadyListener;
 import nl.jerodeveloper.spacecord.core.config.Configuration;
 import nl.jerodeveloper.spacecord.core.modular.ModuleLoader;
-import org.apache.commons.configuration.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.security.auth.login.LoginException;
-import java.io.IOException;
 
 public class BotManager {
 
@@ -20,21 +16,21 @@ public class BotManager {
     @Getter private final Logger logger;
     @Getter private final Configuration configuration;
 
-    public BotManager() {
-        this.moduleLoader = new ModuleLoader(this);
+    public BotManager() throws Exception {
         this.logger = LoggerFactory.getLogger(getClass());
         this.configuration = new Configuration();
+        configuration.loadSettings();
+        this.moduleLoader = new ModuleLoader(this);
     }
 
-    public void load() throws LoginException, IOException, ConfigurationException {
-        configuration.loadSettings();
-
+    public void load() throws Exception {
         this.jda = JDABuilder
                 .createDefault(configuration.getString("bot.token"))
-                .addEventListeners(new ReadyListener(moduleLoader))
+                .addEventListeners(new ReadyListener(this))
                 .build();
 
         getLogger().info("Loading modules...");
+
         moduleLoader.load();
     }
 

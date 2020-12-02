@@ -8,5 +8,6 @@ public class ValidatorResult {
 
     @Getter private final boolean valid;
     @Getter private final String context;
+    @Getter private final boolean message;
 
 }

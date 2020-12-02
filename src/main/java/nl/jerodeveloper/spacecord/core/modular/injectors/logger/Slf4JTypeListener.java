@@ -1,4 +1,4 @@
-package nl.jerodeveloper.spacecord.core.modular.logger;
+package nl.jerodeveloper.spacecord.core.modular.injectors.logger;
 
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;

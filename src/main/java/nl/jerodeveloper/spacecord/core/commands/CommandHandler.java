@@ -11,7 +11,7 @@ public class CommandHandler {
     @Getter private final HashMap<Class<?>, Object> commands;
     @Getter private static final String prefix = "space!";
 
-    private CommandHandler(HashMap<Class<?>, Object> commands) {
+    public CommandHandler(HashMap<Class<?>, Object> commands) {
         this.commands = commands;
     }
 
@@ -27,23 +27,12 @@ public class CommandHandler {
         CommandExecutor.executeCommand(commands.get(command), event);
     }
 
-    public static class Builder {
-
-        private final HashMap<Class<?>, Object> commands = new HashMap<>();
-
-        public Builder addCommand(Object object) {
-            if (!object.getClass().isAnnotationPresent(Command.class)) {
-                throw new IllegalStateException(String.format("Command with class %s does not have Command annotation", object.getClass()));
-            }
-
-            commands.put(object.getClass(), object);
-            return this;
+    public void addCommand(Object object) {
+        if (!object.getClass().isAnnotationPresent(Command.class)) {
+            throw new IllegalStateException(String.format("Command with class %s does not have Command annotation", object.getClass()));
         }
 
-        public CommandHandler build() {
-            return new CommandHandler(commands);
-        }
-
+        commands.put(object.getClass(), object);
     }
 
 }
